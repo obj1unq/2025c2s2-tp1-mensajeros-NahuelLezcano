@@ -1,16 +1,3 @@
-
-object empresaDeMensajeria {
-
-    method puedeEnviar(persona, paquete, destino) = paquete.estaPago() and destino.dejaPasarA(persona) 
-}
-
-
-object georgeLucas {
-    
-    method pagarPaquete(paquete) = paquete.pagar() 
-}
-
-
 // Personas empleadas para el envio del paquete
 
 object jeanGrey {
@@ -53,9 +40,13 @@ object moto {
 
 object camion {
     
-    var property acoplados = 0 
+    var property cantidadAcoplados = 0 
 
-    method peso() = 500 + (500 * acoplados) 
+    method pesoPropio() = 500 
+
+    method pesoPorAcoplados() = 500 * cantidadAcoplados 
+
+    method peso() = self.pesoPropio() + self.pesoPorAcoplados()
 }
 
 
@@ -68,6 +59,8 @@ object paquete {
     method pagar() {
         estaPago = true
     }
+
+    method puedeSerEnviado(persona, destino) = self.estaPago() and destino.dejaPasarA(persona) 
 }
 
 
