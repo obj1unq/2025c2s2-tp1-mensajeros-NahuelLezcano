@@ -1,0 +1,39 @@
+import mensajerosDePelicula.*
+
+describe "Test de mensajeros de pelicula" {
+  test "El paquete de George que no está pago no puede ser llevado por Neo a la matrix." {
+    
+    assert.notThat(paquete.puedeSerEnviado(neo, matrix))
+  }
+
+
+  test "El paquete de George que sí está pago puede ser llevado por Jean a la matrix" {
+    
+    paquete.pagar()
+    
+    assert.that(paquete.puedeSerEnviado(jeanGrey, matrix))
+  }
+
+
+  test "El paquete de George que sí está pago no puede ser llevado por Sara (que pesa 70kg) a Brooklyn si utiliza un camión con un acoplado." {
+    
+    paquete.pagar()
+    
+    saraConnor.pesoPropio(70)
+    camion.cantidadAcoplados(1)   //se configura primero el camión para poder pasarlo después como argumento.
+    saraConnor.vehiculo(camion)
+    
+    assert.notThat(paquete.puedeSerEnviado(saraConnor, puenteDeBrooklyn))
+  }
+
+
+  test "El paquete de George que si está pago puede ser llevado por Sara (que pesa 70kg) a Brooklyn si utiliza una moto" {
+
+    paquete.pagar()
+
+    saraConnor.pesoPropio(70)
+    saraConnor.vehiculo(moto)
+
+    assert.that(paquete.puedeSerEnviado(saraConnor, puenteDeBrooklyn))
+  }
+}
